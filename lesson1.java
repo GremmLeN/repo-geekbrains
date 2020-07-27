@@ -5,43 +5,33 @@ public class lesson1 {
 
     public static void main(String[] args) {
 
-        calculate(5, 4, 10, 3);
+        System.out.println(calculate(5, 4, 10, 3));
         System.out.println(checkSum(9 ,6));
-        checkNegative(-12);
-        helloSomeone("Momo");
-        checkYear(2020);
+        System.out.println(checkNegative(-12));
+        System.out.println(helloSomeone("Momo"));
+        System.out.println(checkYear(2020));
 
     }
 
-    private static void calculate(int a , int b, int c, int d) {
-         float res = a * (b + (c / d));
-        System.out.println(res);
+    private static float calculate(int a , int b, int c, int d) {
+        return a * (b + (c / d));
+
     }
 
     private static boolean checkSum(int a, int b) {
-        if ( a + b > 10 && a + b < 20) return true;
-         else return false;
+        return ( a + b > 10 && a + b < 20);
     }
 
-    private static void checkNegative(int a) {
-        if ( a >= 0 ) {
-            System.out.println("Число " + a + " положительное.");
-        }
-         else {
-            System.out.println("Число " + a + " отрицитальное");
-        }
-
+    private static boolean checkNegative(int a) {
+        return  ( a >= 0 );
     }
 
-    private static void helloSomeone(String name) {
-        String hello = "Привет, " + name + "!";
-        System.out.println(hello);
+    private static String helloSomeone(String name) {
+       return "Привет, " + name + "!";
     }
 
-    private static void checkYear (int year) {
-        if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
-            System.out.println(year + " Год високосный");
-        else
-            System.out.println(year + " Год не високосный");
+    private static boolean checkYear (int year) {
+        return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+
     }
 }
