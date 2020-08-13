@@ -1,0 +1,87 @@
+package ru.geekbrains;
+
+import java.io.*;
+import java.util.Scanner;
+
+public class lesson6 {
+
+    public static void main(String[] args) {
+        String [] str =  {"Warhawk_part1.txt",
+                          "Warhawk_part2.txt"
+                         };
+        String [] str0 = {"Introduced by Clan Smoke Jaguar in 2999 in preparation for the anticipated return to the Inner Sphere, while the Dragoon Compromise stalled such plans, the Jaguars unleashed the powerful Warhawk on their Warden opponents to deadly effect. Deployed extensively in the Jaguar frontline forces, and often seen paired with the Dire Wolf, the design truly came to prominence as originally intended, on the battlefields of the Jaguars' Invasion Corridor and earned the code name of Masakari - a Japanese battle-axe used on medieval Terra - from warriors within the DCMS who faced it.",
+                          "Though it appeared in the Toumans of a number of other Clans, such as the Ghost Bears and Jade Falcons, the Jaguars jealously guarded their production, and all examples of the highly prized 'Mech outside of the Jaguars were battlefield salvage until production lines and design specs finally spread to the Fire Mandrills, Diamond Sharks and Goliath Scorpions upon the Smoke Jaguars' Annihilation.Produced exclusively on the Clan Homeworlds, the design was one of many lost to the Inner Sphere Clans after contact with the Homeworlds ceased during the Jihad."
+                         };
+
+        for (int i = 0; i < str.length; i++) {
+            writeFileContent(str[i], str0[i]);
+        }
+
+        mergeFiles(str[1], str[0]);
+
+        System.out.println(findWord("Clan", str[0]));
+
+        System.out.println(findWordInDirectory("C:\\Users\\GremmLeN\\IdeaProjects\\uviver_lesson_1\\src\\ru\\geekbrains", "Clan"));
+    }
+
+    private static void writeFileContent(String fileName, String fileContent) {
+        try {
+            FileOutputStream fos = new FileOutputStream(fileName);
+            fos.write(fileContent.getBytes());
+            fos.flush();
+            fos.close();
+        } catch (IOException exc) {
+            exc.printStackTrace();
+        }
+    }
+
+    private static void mergeFiles(String file1, String file2) {
+        String read = null;
+        try {
+            FileInputStream fis = new FileInputStream(file1);
+            int r;
+            while ( (r = fis.read()) != -1 )
+                read = read + (char) r;
+            //System.out.println(read);
+            PrintStream ps = new PrintStream(new FileOutputStream(file2, true));
+            ps.println(read);
+            ps.flush();
+            ps.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static boolean findWord(String word, String fileName) {
+        //System.out.println(word + " " + fileName);
+        try {
+            Scanner scanner = new Scanner(new File(fileName));
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.indexOf(word) != -1) return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private static boolean findWordInDirectory(String path, String word) {
+        String[] fList;
+        File f = new File(path);
+        fList = f.list();
+        for (String file : fList) {
+            S//ystem.out.println(file);
+            try {
+                Scanner scanner = new Scanner(new File(file));
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    if (line.indexOf(word) != -1) return true;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+}
